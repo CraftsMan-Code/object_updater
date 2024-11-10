@@ -9,6 +9,13 @@ export default [
   {
     rules: {
       eqeqeq: ["error", "smart"],
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          args: "all"
+        },
+      ],
     },
   },
 
