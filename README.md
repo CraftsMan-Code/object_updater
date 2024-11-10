@@ -1,1 +1,3 @@
-# object_updater
+# Generic object updater with rules
+
+ADD DESCRIPTION
