@@ -3,6 +3,12 @@
 import { ComplexRules, UpdateAction } from "./interfaces";
 import { Updater } from "./updater";
 
+interface Description {
+    lang: string;
+    text: string;
+    
+}
+
 
 interface Address {
     name: string;
@@ -13,7 +19,10 @@ interface Address {
         lang: string,
         opt?: number
     }
+    descriptions?: Description[]
 }
+
+
 
 
 const original: Address = {
