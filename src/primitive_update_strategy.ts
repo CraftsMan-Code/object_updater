@@ -18,13 +18,13 @@ export class PrimitiveUpdateStrategy implements UpdateStrategy {
             switch (rulesForKey.action) {
                 case UpdateAction.DELETE:
                     delete original[updateKey];
-                    break;
+                    return;
                 case UpdateAction.IGNORE:
-                    break;
+                    return;
                 case UpdateAction.REPLACE:
                 default:
                     original[updateKey] = updateValue;
-                    break;
+                    return;
             }
         }
     }
