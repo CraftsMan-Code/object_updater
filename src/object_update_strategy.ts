@@ -43,9 +43,12 @@ export class ObjectUpdateStrategy implements UpdateStrategy {
             switch (rulesForKey.action) {
                 case UpdateAction.DELETE:
                     delete original[updateKey];
-                    break;
+                    return;
                 case UpdateAction.IGNORE:
-                    break;
+                    return;
+                case UpdateAction.UPSERT_BY_KEY:
+                    throw new Error(`Cannot perform update on '${String(updateKey)}', 
+                    the 'UPSERT_BY_KEY' is available only for array of objects`);
                 case UpdateAction.REPLACE:
                 default:
                     original[updateKey] = updateValue;
@@ -60,4 +63,5 @@ export class ObjectUpdateStrategy implements UpdateStrategy {
                 );
         }
     }
+
 }

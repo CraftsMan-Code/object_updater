@@ -4,8 +4,8 @@
   "description": "Generic object updater with rules",
   "main": "main.ts",
   "scripts": {
-    "test:unit": "ADD",
-    "lint": "eslint src/**/*.ts"
+    "lint": "eslint src/**/*.ts",
+    "dev": "npx ts-node src/main.ts"
   },
   "author": "Marcel Harvan",
   "license": "MIT",

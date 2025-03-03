@@ -26,6 +26,14 @@ export enum UpdateAction {
     IGNORE = ' IGNORE',
     /** Replaces the value of the property in the original object with the update value */
     REPLACE = 'REPLACE',
+    /** Additional Array rules */
+    /** Merges original values with update, no check for duplicates */
+    MERGE = 'MERGE',
+    /** Merges original values with update, no duplicates */
+    UNION = 'UNION',
+    /** update if exists, insert if not */
+    UPSERT_BY_KEY = 'UPSERT_BY_KEY',
+    // PATCH_BY_KEY = 'PATCH_BY_KEY'
 }
 
 /**
@@ -33,7 +41,13 @@ export enum UpdateAction {
  * It contains an action property that specifies the update action to be performed.
  */
 export interface PrimitiveRule {
+    /** Represents action for update */
     action: UpdateAction;
+    /** 
+     * Represents update key for arrays of objects.
+     * 
+     */
+    mergeKey?: string; 
 }
 
 /**

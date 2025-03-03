@@ -17,11 +17,14 @@ export const isObject = (value: unknown): value is Record<string, unknown> => {
  * @param object An object to iterate over.
  * @param callback A callback that is called with each object key.
  */
-export const forEachKey = <T extends object>(object: T | undefined, callback: (key: keyof T) => void) => {
-    if (object) {
-        Object.keys(object).forEach((key: string) => callback(key as keyof T))
-    }
+export const forEachKey = <T extends object>(
+    object: T | undefined,
+    callback: (key: keyof T) => void
+): void => {
+    if (!object) return;
+    (Object.keys(object) as Array<keyof T>).forEach(callback);
 };
+
 
 /**
  * Checks if the object is empty.

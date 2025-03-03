@@ -2,7 +2,13 @@
 
 ## Table of contents
  
-TBD
+- [Object Updater](#object-updater)
+  - [Table of contents](#table-of-contents)
+  - [Definitions](#definitions)
+  - [Design](#design)
+    - [Update Rules](#update-rules)
+    - [Update Process](#update-process)
+
 
 ## Definitions
 
@@ -12,9 +18,16 @@ TBD
 
 ### Update Rules
 
+**General Rules**
+
 - `REPLACE` - The target value will be replaced with new one
 - `IGNORE` - The target value will not be changed
 - `DELETE` - The the target property will be removed from the result object
+
+**Additional Array Rules**
+
+- `MERGE`: property is merged with the update (no check for duplicates).
+- `UNION`: property is merged with the update, no duplicates.
 
 ### Update Process
 
