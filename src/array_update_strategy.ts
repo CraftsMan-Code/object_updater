@@ -39,7 +39,6 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
         } else {
             original[updateKey] = updateValue;
         }
-
     }
 
 
@@ -66,58 +65,6 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
             ? this.mergeArrayOfObjectsNoDuplicates(originalValue, updateValue) as T[keyof T]
             : [...new Set([...originalValue, ...updateValue])] as T[keyof T];
     }
-    
-
-    // private upsertByKey<T>(
-    //     original: T,
-    //     updateKey: keyof T,
-    //     updateValue: T[keyof T],
-    //     mergeKey?: keyof T[keyof T]
-    // ): void {
-    //     const originalValue = original[updateKey];
-    
-    //     if (!Array.isArray(originalValue) || !Array.isArray(updateValue)) {
-    //         throw new Error(`Expected an array for key '${String(updateKey)}'`);
-    //     }
-    
-    //     if (!this.isObjectType(originalValue, updateKey, updateValue)) {
-    //         throw new Error(`Cannot perform update on '${String(updateKey)}', 
-    //             the 'UPSERT_BY_KEY' is available only for an array of objects`);
-    //     }
-    
-    //     if (!mergeKey) {
-    //         throw new Error(`Cannot perform update on '${String(updateKey)}'. 
-    //             The 'UPSERT_BY_KEY' requires 'mergeKey' to be defined`);
-    //     }
-    
-    //     const tmpMap = new Map<unknown, Record<string, unknown>>();
-    
-    //     // Add original objects to the map using mergeKey
-    //     originalValue.forEach((originalObject) => {
-    //         if (mergeKey in originalObject) {
-    //             tmpMap.set(originalObject[mergeKey], { ...originalObject });
-    //         }
-    //     });
-    
-    //     // Merge or insert update objects
-    //     updateValue.forEach((updateObject) => {
-    //         if (!(mergeKey in updateObject)) return; // Skip objects missing mergeKey
-    
-    //         const key = updateObject[mergeKey];
-    //         if (tmpMap.has(key)) {
-    //             const objectToBeUpdated = tmpMap.get(key)!;
-    //             forEachKey(updateObject, (key: keyof typeof objectToBeUpdated) => {
-    //                 objectToBeUpdated[key] = updateObject[key];
-    //             });
-    //         } else {
-    //             tmpMap.set(key, { ...updateObject });
-    //         }
-    //     });
-    
-    //     original[updateKey] = [...tmpMap.values()] as T[keyof T];
-    // }
-    
-
 
     private upsertByKey<T>(original: T, updateKey: keyof T, updateValue: T[keyof T], mergeKey?: string): void {
         const originalValue: T[keyof T] = original[updateKey];
@@ -193,7 +140,7 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
             set.add(this.normalizeObject(obj)); // Add normalized object
         }
     
-        return Array.from(set).map(str => JSON.parse(str) as T); // Convert back to array of objects
+        return Array.from(set).map(str => JSON.parse(str)); // Convert back to array of objects
     }
     
 

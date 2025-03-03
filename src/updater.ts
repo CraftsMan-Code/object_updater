@@ -8,7 +8,6 @@ import { ComplexRules, PrimitiveRule, UpdateStrategy } from "./interfaces";
 import { ObjectUpdateStrategy } from "./object_update_strategy";
 import { PrimitiveUpdateStrategy } from "./primitive_update_strategy";
 
-
 export class Updater {
 
     /**
@@ -23,7 +22,6 @@ export class Updater {
             primitive: new PrimitiveUpdateStrategy(),
         }
     }
-
 
     /**
      * Updates the original object with the provided updates.
@@ -58,7 +56,6 @@ export class Updater {
             }
             strategy.update(original, updateValue, updateKey, rulesForKey as ComplexRules<T>);
         });
-
         return original;
     }
 
