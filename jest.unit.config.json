@@ -1,0 +1,15 @@
+{
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "testMatch": [  "**/spec/unit/**/*[sS]pec.ts" ],
+    "randomize": true,
+    "coverageDirectory": "./build/coverage/",
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 80,
+        "lines": 80,
+        "statements": 80
+      }
+    }
+  }
