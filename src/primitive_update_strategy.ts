@@ -5,7 +5,6 @@
 import { isObject } from "./helpers/helpers";
 import { ComplexRules, PrimitiveRule, UpdateAction, UpdateStrategy } from "./interfaces";
 
-
 export class PrimitiveUpdateStrategy implements UpdateStrategy {
 
     update<T>(
@@ -17,6 +16,7 @@ export class PrimitiveUpdateStrategy implements UpdateStrategy {
         if ('action' in rulesForKey && !isObject(rulesForKey.action)) {
             switch (rulesForKey.action) {
                 case UpdateAction.DELETE:
+                    // console.log('delete ', updateKey);
                     delete original[updateKey];
                     return;
                 case UpdateAction.IGNORE:

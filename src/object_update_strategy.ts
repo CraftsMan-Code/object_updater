@@ -6,8 +6,6 @@ import { isObject } from "./helpers/helpers";
 import { ComplexRules, PrimitiveRule, UpdateAction, UpdateStrategy } from "./interfaces";
 import { Updater } from "./updater";
 
-
-
 /**
 * This class provides an 'update method for updating nested objects.
 * This class implements the "UpdateStrategy interface.
@@ -35,7 +33,8 @@ export class ObjectUpdateStrategy implements UpdateStrategy {
      * @param updateKey - The key of the original property to be updated.
      * @param rulesForKey - The rules for particular property in original object.
      */
-    public update<T>(original: T,
+    public update<T>(
+        original: T,
         updateValue: T[keyof T],
         updateKey: keyof T,
         rulesForKey: PrimitiveRule | ComplexRules<T>): void {
@@ -47,8 +46,10 @@ export class ObjectUpdateStrategy implements UpdateStrategy {
                 case UpdateAction.IGNORE:
                     return;
                 case UpdateAction.UPSERT_BY_KEY:
-                    throw new Error(`Cannot perform update on '${String(updateKey)}', 
-                    the 'UPSERT_BY_KEY' is available only for array of objects`);
+                    throw new Error(
+                        `Cannot perform update on '${String(updateKey)}',` + 
+                        "the 'UPSERT_BY_KEY' is available only for array of objects"
+                    );
                 case UpdateAction.REPLACE:
                 default:
                     original[updateKey] = updateValue;

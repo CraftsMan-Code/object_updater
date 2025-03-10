@@ -4,7 +4,6 @@
 
 import { forEachKey } from "./helpers/helpers";
 import { ComplexRules, PrimitiveRule, UpdateAction, UpdateStrategy } from "./interfaces"
-import { Updater } from "./updater";
 
 /**
  * This class provides an update method for updating array data types.
@@ -42,6 +41,17 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
     }
 
 
+    /**
+     * Merges the original array with the update array,
+     * no check for duplicates
+     * @param original 
+     * @param updateKey
+     * @param updateValue
+     * @returns
+     * @throws Error if the original array and update array are not of the same data type
+     * @throws Error if the data type is not supported
+     * @throws Error if the attribute array must hold only one data type
+     */
     private merge<T>(original: T, updateKey: keyof T, updateValue: T[keyof T]): void {
         const originalValue: T[keyof T] = original[updateKey];
 
@@ -53,6 +63,17 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
         }
     }
 
+    /**
+     * Unions the original array with the update array,
+     * no duplicates.
+     * @param original
+     * @param updateKey
+     * @param updateValue
+     * @returns
+     * @throws Error if the original array and update array are not of the same data type
+     * @throws Error if the data type is not supported
+     * @throws Error if the attribute array must hold only one data type
+     */ 
     private union<T>(original: T, updateKey: keyof T, updateValue: T[keyof T]): void {
         const originalValue: T[keyof T] = original[updateKey];
     
@@ -66,6 +87,20 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
             : [...new Set([...originalValue, ...updateValue])] as T[keyof T];
     }
 
+    /**
+     * Updates the original array with the update array,
+     * no check for duplicates.
+     * @param original
+     * @param updateKey
+     * @param updateValue           
+     * @param mergeKey
+     * @returns
+     * @throws Error if the original array and update array are not of the same data type
+     * @throws Error if the data type is not supported
+     * @throws Error if the attribute array must hold only one data type
+     * @throws Error if the 'UPSERT_BY_KEY' is available only for array of objects
+     * @throws Error if the 'UPSERT_BY_KEY' requires mergeKey to be defined
+     */
     private upsertByKey<T>(original: T, updateKey: keyof T, updateValue: T[keyof T], mergeKey?: string): void {
         const originalValue: T[keyof T] = original[updateKey];
         if (!Array.isArray(originalValue) || !Array.isArray(updateValue)) {
@@ -95,16 +130,29 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
                 original[updateKey] = [...tmpMap.values()] as T[keyof T];
                 
             } else {
-                throw new Error(`Cannot perform update on '${String(updateKey)}' ` + 
-                'the UPSERT_BY_KEY requires mergeKey to be defined');
+                throw new Error(
+                    `Cannot perform update on '${String(updateKey)}', ` + 
+                    'the UPSERT_BY_KEY requires mergeKey to be defined',
+                );
             }
         } else {
-            throw new Error(`Cannot perform update on '${String(updateKey)}', 
-            the 'UPSERT_BY_KEY' is available only for array of objects`);
+            throw new Error(
+                `Cannot perform update on '${String(updateKey)}', ` +
+                "the 'UPSERT_BY_KEY' is available only for array of objects",
+            );
         }
     }
 
 
+    /**
+     * Checks if the data type of the array is an object
+     * @param originalValue
+     * @param updateKey
+     * @param updateValue       
+     * @returns
+     * @throws Error if the attribute array must hold only one data type
+     * @throws Error if the data type is not supported
+     */
     private isObjectType<T>(originalValue: T[], updateKey: keyof T, updateValue: T[]): boolean {
         const originTypes: Set<string> = new Set(this.getArrayDataTypes(originalValue));
         const updateTypes: Set<string> = new Set(this.getArrayDataTypes(updateValue));
@@ -121,18 +169,21 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
         throw new Error(`Not supported datatype: '${type}' for attribute: '${String(updateKey)}'`);
     }
 
-
     /**
      * Returns the datatypes that are included in array
-     * @param arr 
-     * @returns 
+     * @param arr
+     * @returns array of data types
      */
     private getArrayDataTypes<T>(arr: T[]): string[] {
         return Array.from(new Set(arr.map(item => typeof item)));
     }
 
-
-
+    /**
+     * Merges two arrays of objects without duplicates.
+     * @param arr1
+     * @param arr2
+     * @returns
+     */
     private mergeArrayOfObjectsNoDuplicates<T extends Record<string, unknown>>(arr1: T[], arr2: T[]): T[] {
         const set = new Set<string>(arr1.map(obj => this.normalizeObject(obj)));
     
@@ -143,7 +194,6 @@ export class ArrayUpdateStrategy implements UpdateStrategy {
         return Array.from(set).map(str => JSON.parse(str)); // Convert back to array of objects
     }
     
-
     /**
      * Turns object into the normalized string
      * @param obj to be normalized

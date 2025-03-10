@@ -31,7 +31,6 @@ interface Address {
 
 
 
-
 const original: Address = {
     name: 'Johan',
     age: 55,
@@ -66,20 +65,20 @@ const update: Address = {
     },
     // descriptions: ['abc', '123', 'xyz']
 
-    descriptions: [
-        {
-            id: '12345',
-            lang: '1',
-            text: '1',
+    // descriptions: [
+    //     {
+    //         id: '12345',
+    //         lang: '1',
+    //         text: '1',
             
-        },
-        {
-            text: 'xxxx',
-            lang: 'abc',
-            id: '54321',
-            opt: 'Here'
-        }
-    ],
+    //     },
+    //     {
+    //         text: 'xxxx',
+    //         lang: 'abc',
+    //         id: '54321',
+    //         opt: 'Here'
+    //     }
+    // ],
     o: {
         o: ['120']
     }
@@ -99,9 +98,12 @@ const rules: ComplexRules<Address> = {
         action: UpdateAction.REPLACE,
     },
     descriptions: {
-        action: UpdateAction.UPSERT_BY_KEY,
-        mergeKey: 'id'
+        action: UpdateAction.DELETE
     },
+    // descriptions: {
+    //     action: UpdateAction.UPSERT_BY_KEY,
+    //     mergeKey: 'id'
+    // },
     o: {
         // @ts-ignore
         o: {
