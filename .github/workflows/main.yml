@@ -21,6 +21,7 @@ jobs:
     needs: build
 
     steps:
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/node_setup 
     - name: Linting
       run: npm run lint
@@ -34,6 +35,7 @@ jobs:
     needs: tests
 
     steps:
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/node_setup
     - name: Build package
       run: npm pack
@@ -44,6 +46,7 @@ jobs:
     needs: pkg-build
 
     steps:
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/node_setup
     - name: Testing NPM package
       run: echo "Testing NPM package placeholder"
@@ -54,6 +57,7 @@ jobs:
     needs: pkg-test
 
     steps:
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/node_setup
     - name: Publishing NPM package
       run: echo "Publishing NPM package placeholder"
