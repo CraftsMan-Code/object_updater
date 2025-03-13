@@ -3,11 +3,27 @@
   "version": "0.0.1",
   "description": "Generic object updater with rules",
   "main": "compiled/main.js",
+  "module": "compiled/main.js",
+  "types": "compiled/main.d.ts",
+  "keywords": [
+    "object",
+    "update",
+    "rules"
+  ],
+  "files": [
+    "compiled"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:CraftsMan-Code/object_updater.git"
+  },
   "scripts": {
     "lint": "eslint src/**/*.ts",
-    "dev": "npx ts-node src/main.ts",
     "test:unit": "jest --runInBand --config=jest.unit.config.json",
-    "test:coverage": "jest --runInBand --config=jest.unit.config.json --coverage"
+    "test:coverage": "jest --runInBand --config=jest.unit.config.json --coverage",
+    "prepack": "node prepack.mjs && npx tsc",
+    "postpack": "node postpack.mjs",
+    "dev": "node prepack.mjs"
   },
   "author": "Marcel Harvan",
   "license": "MIT",
