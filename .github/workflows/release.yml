@@ -1,0 +1,19 @@
+name: Release Workflow
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  release:
+    if: startsWith(github.ref, 'refs/tags/v') && github.ref_name == 'main'
+    name: Release NPM package
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/node_setup
+    - name: Semantic Release
+      env: 
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      run: npx semantic-release

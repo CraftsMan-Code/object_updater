@@ -9,7 +9,7 @@ With Generic Object Updater, you can safely update complex nested objects while 
 ## Install
 
 ```bash
-npm install object-updater
+npm install object_updater
 ```
 
 ## Rules
