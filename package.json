@@ -22,8 +22,7 @@
     "test:unit": "jest --runInBand --config=jest.unit.config.json",
     "test:coverage": "jest --runInBand --config=jest.unit.config.json --coverage",
     "prepack": "node prepack.mjs && npx tsc",
-    "postpack": "node postpack.mjs",
-    "dev": "node prepack.mjs"
+    "postpack": "node postpack.mjs"
   },
   "author": "Marcel Harvan",
   "license": "MIT",

@@ -48,14 +48,4 @@ jobs:
     steps:
     - name: Testing NPM package
       run: echo "Testing NPM package placeholder"
-  
-  publish:
-    name: Publishing NPM package
-    runs-on: ubuntu-latest
-    needs: pkg-test
-
-    steps:
-    - name: Publishing NPM package
-      run: echo "Publishing NPM package placeholder"
       
-    
