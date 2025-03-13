@@ -1,0 +1,20 @@
+name: Release Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  release:
+    name: Release NPM package
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - uses: ./.github/actions/node_setup
+
+    - name: Create npmrc
+      run: |
+        echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc    
+
+    - name: NPM Publish
+      run: | 
+        npm publish
