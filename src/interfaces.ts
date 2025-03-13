@@ -9,9 +9,9 @@
  */
 export interface UpdateStrategy {
     update<T>(
-        original: T, 
-        updateValue: T[keyof T] | undefined, 
-        updateKey: keyof T, 
+        original: T,
+        updateValue: T[keyof T] | undefined,
+        updateKey: keyof T,
         rulesForKey: ComplexRules<T> | PrimitiveRule
     ): void;
 }
@@ -46,25 +46,18 @@ export interface PrimitiveRule {
     /** 
      * Represents update key for arrays of objects.
      * 
-     */
-    mergeKey?: string; 
+    */
+    mergeKey?: string;
 }
 
 /**
  * Defines a set of rules for updating complex data types.
  * It is a recursive interface where each key corresponds to a PrimitiveRule or a nested ComplexRules object.
+ * NOTE: The keys of the rules object must match the keys of the object being updated.
+ * NOTE: The rules are not implemented for nested objects.
  */
-// export interface ComplexRules { 
-//     [key: string]: PrimitiveRule | ComplexRules
-// }
-
-// export type ComplexRules<T> = {
-//     [K in keyof T]: T[K] extends object ? ComplexRules<T[K]> : PrimitiveRule;
-// };
-
-
 export type ComplexRules<T> = {
-    [K in keyof T]: T[K] extends object
-        ? PrimitiveRule | ComplexRules<T[K]> // Allow either a PrimitiveRule or further nested ComplexRules
-        : PrimitiveRule;                     // Require PrimitiveRule for non-object types
+    [K in keyof T]: T[K] extends Record<string, unknown>
+    ? PrimitiveRule | ComplexRules<T[K]> // Allow either a PrimitiveRule or further nested ComplexRules
+    : PrimitiveRule;                     // Require PrimitiveRule for non-object types
 };
