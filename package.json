@@ -1,6 +1,6 @@
 {
   "name": "object_updater",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Generic object updater with rules",
   "main": "compiled/main.js",
   "module": "compiled/main.js",
