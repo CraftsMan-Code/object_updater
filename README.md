@@ -58,7 +58,21 @@ is `merged`, `replaced`, `ignored`, `deleted`, or `upserted`.
 
 
 ```TypeScript
-import { ComplexRules, UpdateAction, Updater } from "object_updater";
+import { ComplexRules, UpdateAction, updateObject } from "object_updater";
+
+
+interface User {
+    id: number;
+    name: string;
+    [index: string]: unknown;
+}
+
+interface Person {
+    name: string;
+    age: number;
+    tags: string[];
+    users: User[];
+}
 
 const original = {
     name: "Alice",
@@ -80,7 +94,7 @@ const update = {
     ]
 };
 
-const rules: Record<string, PrimitiveRule> = {
+const rules: ComplexRules<Person> = {
     name: { action: UpdateAction.REPLACE },  // Replace `name`
     age: { action: UpdateAction.IGNORE },    // Ignore `age`
     tags: { action: UpdateAction.UNION },    // Merge `tags`, removing duplicates
