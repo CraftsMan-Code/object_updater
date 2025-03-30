@@ -1,6 +1,6 @@
 {
   "name": "object_updater",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Generic object updater with rules",
   "main": "compiled/main.js",
   "module": "compiled/main.js",
@@ -8,7 +8,9 @@
   "keywords": [
     "object",
     "update",
-    "rules"
+    "rules",
+    "merge",
+    "recursive"
   ],
   "files": [
     "compiled"
