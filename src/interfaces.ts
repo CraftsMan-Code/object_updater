@@ -23,7 +23,7 @@ export enum UpdateAction {
     /** Deletes the property from the original object */
     DELETE = 'DELETE',
     /** Ignores the update and makes no changes to the original object */
-    IGNORE = ' IGNORE',
+    IGNORE = 'IGNORE',
     /** Replaces the value of the property in the original object with the update value */
     REPLACE = 'REPLACE',
     /** Additional Array rules */
